@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Blacknote</title>
+
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 50px;
+      min-height: 100vh;
+      background-color: #000;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .top {
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      width: 180px;
+      height: 40px;
+      padding: 0 12px;
+      border-radius: 10px;
+      border: none;
+      background-color: #1f1f1f;
+      color: white;
+      outline: none;
+    }
+
+    .add {
+      width: 60px;
+      height: 40px;
+      border-radius: 10px;
+      border: none;
+      background-color: #1f1f1f;
+      color: white;
+      cursor: pointer;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+ 
+    .note-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    
+    .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      background: #1f1f1f;
+      border-radius: 10px;
+      width: 200px;
+      height: 40px;
+      color: white;
+    }
+
+    .text.done {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .done-btn {
+      width: 60px;
+      height: 40px;
+      border-radius: 10px;
+      border: none;
+      background-color: #1f1f1f;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app">
+    <div class="top">
+      <input type="text" placeholder="Type something" />
+      <button class="add">Add</button>
+    </div>
+
+    <div class="container"></div>
+  </div>
+
+  <script>
+    const addBtn = document.querySelector('.add')
+    const input = document.querySelector('input')
+    const container = document.querySelector('.container')
+
+    addBtn.addEventListener('click', () => {
+      const text = input.value.trim()
+      if (!text) return
+
+      // строка
+      const row = document.createElement('div')
+      row.className = 'note-row'
+
+      // голубой блок
+      const box = document.createElement('div')
+      box.className = 'box'
+
+      const span = document.createElement('span')
+      span.className = 'text'
+      span.textContent = text
+
+      box.appendChild(span)
+
+      // кнопка вне контейнера
+      const doneBtn = document.createElement('button')
+      doneBtn.className = 'done-btn'
+      doneBtn.textContent = 'Done'
+
+      doneBtn.addEventListener('click', () => {
+        span.classList.toggle('done')
+      })
+
+      row.appendChild(box)
+      row.appendChild(doneBtn)
+      container.appendChild(row)
+
+      input.value = ''
+    })
+
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') addBtn.click()
+    })
+  </script>
+
+</body>
+</html>
